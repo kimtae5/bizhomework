@@ -1,0 +1,2 @@
+# bizhomework
+SpringBoot singletableCRUD practice
