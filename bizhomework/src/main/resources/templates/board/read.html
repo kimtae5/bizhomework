@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/basic::setContent(~{this::content})}">
+	<th:block th:fragment="content">
+		<div id="wrap">
+    <!-- @ CONTAINER -->
+    <section id="container" class="sub">
+        <!-- @ CONTENTS -->
+        <div id="contents">
+            <!-- @ SUB TITLE AREA -->
+            
+            <div class="write_title">
+                공지사항입니다.
+            </div>
+            <div class="write_date">
+                <span class="write_line"><strong>작성자  :</strong> [[${dto.writer}]] </span>
+                <span class="write_line"><strong>조회수  :</strong> 1125 </span>
+                <span class="write_line"> [[${#temporals.format(dto.regDate, 'yyyy/MM/dd HH:mm:ss')}]]</span>
+                <span><em class="file_icon"></em><a href="#"> 123.hwp</a></span>
+
+            </div>
+            <div class="con_box">
+                
+                [[${dto.content}]]
+            </div>
+
+            <div class="btn_area">
+                <a href="/board/list1" class="btn_blue">목록</a>
+                <a th:href="@{/board/modify(gno=${dto.gno}, page=${requestDTO.page})}">
+                	<button type="button" class="btn_blue">수정</button>
+               	</a> 
+				<button type="button" class="btn_blue">삭제</button> 
+            </div>
+        </div>
+        <!-- CONTENTS @ -->
+    </section>
+    <!-- CONTAINER @ -->
+</div>
+<!-- 
+		<a th:href="@{/memo/list(page=${requestDTO.page})}">
+			<button type="button" class="btn btn-info">목록</button>
+		</a>	
+		-->						
+	</th:block>
+</th:block>

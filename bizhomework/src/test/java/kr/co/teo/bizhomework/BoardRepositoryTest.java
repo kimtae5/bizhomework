@@ -1,29 +1,65 @@
 package kr.co.teo.bizhomework;
 
-import java.util.List;
+import java.util.Optional;
+import java.util.stream.IntStream;
 
-import javax.transaction.Transactional;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.querydsl.QuerydslPredicateExecutor;
-import org.springframework.data.repository.query.Param;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import kr.co.teo.bizhomework.model.Board;
+import kr.co.teo.bizhomework.persistence.BoardRepository;
 
-public interface BoardRepositoryTest extends JpaRepository<Board, Long>,
-QuerydslPredicateExecutor<Board> {
+@SpringBootTest
+public class BoardRepositoryTest{
+	
+	@Autowired
+	private BoardRepository boardRepository;
 
-//title이 일치하는 데이터를 조회 - 이름을 이용해서 생성한 쿼리
-List<Board> findByTitle(String title);
+	//데이터 삽입 테스트
+	//@Test
+	public void insertBoard() {
+		//300개의 정수 모임을 생성하고 순회
+		IntStream.rangeClosed(1, 100).forEach(i -> {
+			//데이터 생성
+			Board board = Board.builder()
+					.title("title..." + i)
+					.content("contents..." + i)
+					.writer("user..." + i)
+					.build();
+			//데이터 삽입
+			boardRepository.save(board);
+		});
+	}
+	
+	//데이터 수정 테스트
+	//@Test
+	public void updateBoard() {
+		//수정할 데이터 가져오기
+		Optional<Board> result = boardRepository.findById(300L);
+		if(result.isPresent()) {
+			Board board = result.get();
+			board.changeTitle("제목 변경");
+			board.changeContent("내용 변경");
+			boardRepository.save(board);
+		}else {
+			System.out.println("데이터가 존재하지 않습니다.");
+		}
+	}
+	
+	//데이터 삭제 테스트
+	//@Test
+	public void deleteBoard() {
+		//삭제 데이터 가져오기
+		Optional<Board> result = boardRepository.findById(300L);
+		if(result.isPresent()) {
+			Board board = result.get();
+			boardRepository.delete(board);
+		}else {
+			System.out.println("데이터가 존재하지 않습니다.");
+		}
+	}
 
-//직접 쿼리를 작성하는 방법
-@Transactional
-@Modifying
-@Query("update Board b set b.title = :title, b.content = :content where b.gno = :gno")
-int updateBoard(@Param("title") String title, 
-		@Param("content") String content, @Param("gno") Long gno);
 
 }
 

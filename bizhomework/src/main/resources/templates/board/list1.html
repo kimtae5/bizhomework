@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/basic::setContent(~{this::content})}">
+	<th:block th:fragment="content">
+		<div class="btn_area">
+			<a th:href="@{/board/register}" class="btn_blue_line">글쓰기</a>
+        </div>
+		<table class="news_list">
+			<caption>News 리스트</caption>
+			<colgroup>
+                <col style="width: 10%">
+                <col style="width: 40%">
+                <col style="width: 10%">
+                <col style="width: 10%">
+                <col style="width: 5%">
+                <col style="width: 8%">
+            </colgroup>
+			<thead>
+                <tr>
+                    <th scope="col">번호</th>
+                    <th scope="col">제목</th>
+                    <th scope="col">작성자</th>
+                    <th scope="col">등록일</th>
+                    <th scope="col">조회</th>
+                    <th scope="col">첨부</th>
+                </tr>
+            </thead>
+			
+			<tbody>
+				<tr th:each="dto:${result.dtoList}">
+					<td>[[${dto.gno}]]</td>
+					<td><a th:href="@{/board/read(gno=${dto.gno}, page=${result.page})}">[[${dto.title}]]</a></td>
+					<td>[[${dto.writer}]]</td>
+					<td>[[${#temporals.format(dto.regDate, 'yyyy/MM/dd')}]]</td>
+					<td class="board_read">989</td>
+               		<td class="board_file"><span class="file_icon">파일다운로드</span>
+				</tr>
+			</tbody>
+		</table>
+		<div class="pagination">
+	        <a class="prev end" >첫 페이지</a>
+	        <b class="page-item" th:if="${result.prev}">
+	        	<a class="prev" th:href="@{/board/list1(page=${result.start-1})}" tabindex="-1">이전 페이지</a>
+	        </b>
+	        
+	        
+	        <b th:class=" 'page-item ' + ${result.page == page?'active':''} " 
+			th:each="page:${result.pageList}">
+				<a class="page-link" th:href="@{/board/list1(page=${page})}" >[[${page}]]</a>
+	        </b>
+	        
+	        <b class="page-item" th:if="${result.next}">
+	        	<a class="next" th:href="@{/board/list1(page=${result.end+1})}" >다음 페이지</a>
+	        </b>
+	        <a href="#" class="next end">마지막 페이지</a>
+        </div>
+		<div class="find_wrap">
+	        <select name="" id="">
+	            <option value="">제목</option>
+	            <option value="">내용</option>
+	        </select>
+	        <input type="text" name="" id=""  title="검색어 입력" placeholder="검색어 입력">
+	        <a href="#" class="btn_gray">검색</a>
+        </div>
+	</th:block>
+</th:block>

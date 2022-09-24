@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<th:block th:replace="~{/layout/basic::setContent(~{this::content})}">
+	<th:block th:fragment="content">
+	
+	<form th:action="@{/board/register}" th:method="post">
+     <!-- @ CONTAINER -->
+     
+        <!-- @ CONTENTS -->
+        
+               
+                <table class="basic_write">
+                    <caption>News 입력</caption>
+                    <colgroup>
+                        <col style="width:150px">
+                        <col style="width:*">
+                    </colgroup>
+					   <tr>
+                        <th>제목<span class="star">*</span></th>
+                        <td><input type="text" title="제목" name="title" id="" class="add_txt"  placeholder="제목 *"></td>
+                    </tr>
+                    <tr>
+                        <th>작성자<span class="star">*</span></th>
+                        <td><input type="text" title="성명" name="writer" id="" class="name_txt" placeholder="성명 *"></td>
+                    </tr>
+                 
+                    <tr>
+                        <th>첨부파일</th>
+                        <td>
+                            <input type="file" title="첨부파일" name="" id="" placeholder="학과/부서" class="name_txt">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>내용 <span class="star">*</span></th>
+                        <td>
+                           <textarea name="content" id="" cols="30" rows="10" style="width:100%"></textarea>
+                        </td>
+                    </tr>
+                    
+                </table>               
+                <div class="btn_area">
+					<button type="submit" class="btn_blue">확인</button> 
+					<a href="/board/list1" class="btn_blue_line">취소</a>
+                </div>
+       
+        <!-- CONTENTS @ -->
+    
+    <!-- CONTAINER @ -->
+
+	
+	</form>
+	
+	
+	</th:block>
+</th:block>
