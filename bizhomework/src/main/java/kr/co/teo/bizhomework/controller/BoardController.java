@@ -65,7 +65,7 @@ public class BoardController {
 	}
 
 	//상세보기 처리를 위한 메서드
-	@GetMapping({"/board/read", "/board/modify"})
+	@GetMapping({"/board/read", "/board/modify", "/board/remove"})
 	public void read(long gno, @ModelAttribute("requestDTO") PageRequestDTO requestDTO, Model model) {
 		
 		BoardDTO board = boardService.read(gno);

@@ -4,16 +4,14 @@
 	<th:block th:fragment="content">
 	
 	<form th:action="@{/board/register}" th:method="post">
-     <!-- @ CONTAINER -->
+    	<!-- @ CONTAINER -->
      
         <!-- @ CONTENTS -->
-        
-               
+                       
                 <table class="basic_write">
                     <caption>News 입력</caption>
                     <colgroup>
                         <col style="width:150px">
-                        <col style="width:*">
                     </colgroup>
 					   <tr>
                         <th>제목<span class="star">*</span></th>
@@ -40,12 +38,14 @@
                 </table>               
                 <div class="btn_area">
 					<button type="submit" class="btn_blue">확인</button> 
-					<a href="/board/list1" class="btn_blue_line">취소</a>
+					<a href="/board/list1" >
+						<button type="button" class="btn_blue_line">취소</button>
+					</a>
                 </div>
        
         <!-- CONTENTS @ -->
     
-    <!-- CONTAINER @ -->
+    	<!-- CONTAINER @ -->
 
 	
 	</form>
